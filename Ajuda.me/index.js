@@ -96,3 +96,45 @@ function menu(){
 
     }
 }
+//--------------------------------------------------------------------------------------------------------------------
+//INTERATIVIDADE DO MODAL E FUNCIONALIDADES DOS BOTÕES 
+const modal = document.querySelector('.modal-container')
+const tbody = document.querySelector('tbody')
+
+
+//Função para abrir o Modal
+//edit é um valor booleano de padrão false e index é 0
+function openModal(edit = false, index = 0) {
+
+    //Quando chamado, adiciona 'active' no classList CSS
+    //que deve mudar o display de none para flex
+    modal.classList.add('active')
+  
+    //no click 'e' representa o evento de click
+    modal.onclick = e => {
+
+        //target representa o botão que foi clicado  
+        //.className.indexOf procura dentro da className do botão o indexOf de tipo string
+        //com conteúdo 'modal-container'; se não existir, retorna -1.
+        //a condição é; se for o contrario de -1, remove 'active' que fecha o modal
+      if (e.target.className.indexOf('modal-container') !== -1) {
+        modal.classList.remove('active')
+      }
+    }
+   
+    //como o padrão de edit é falso, caso for verdadeiro, realiza a função de edição
+    if (edit) {
+
+        //substituições simples de valores 
+      sNome.value = itens[index].nome
+      sFuncao.value = itens[index].funcao
+      sSalario.value = itens[index].salario
+      id = index
+    } else {
+      sNome.value = ''
+      sFuncao.value = ''
+      sSalario.value = ''
+    }
+    
+  }
+  
