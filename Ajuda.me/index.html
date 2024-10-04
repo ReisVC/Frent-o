@@ -1,13 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajuda.me</title>
     <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Biblioteca de ícones-->
 </head>
 <body>
-    <strong><h1>Cadastro de Usuário</h1></strong>
+<div class="container">
+    <!--Header com botão de cadastro que deve abrir o modal-->
+    <div class="header">
+        <strong><h1>Ajuda.me</h1></strong>
+        <button onclick="openModal()" id="new">Adicionar ONG</button>
+    </div>
+
+    <div class="divTable">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>E-Mail</th>
+                    <th>Telefone</th>
+                    <th class="acao">Editar</th>
+                    <th class="acao">Excluir</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+    
+    
+    
+    
+    <!--MODAL QUE DEVE APARECER NA TELA PARA UPDATE DO CRUD-->
+    <div class="modal-container">
+        
+        <div class="modal"></div>
+        
+            <form>
+            
+                <label for="name">Nome</label>
+                <input id="name" type="text" placeholder="Name" required>
+                
+                
+                
+                <label for="cnpj">CNPJ</label>
+                <input id="cnpj" type="number" placeholder="CNPJ" required>
+                
+                
+                
+                
+                
+                <label for="email">E-Mail</label>
+                <input id="email" type="text" placeholder="E-Mail" required>
+                
+                
+                
+                <label for="phone">Telefone</label>
+                <input id="phone" type="number" placeholder="Phone" required>
+                
+            
+            
+            </form>
+        
+        </div>   
+    
+    </div>
+
+</div>
+
 </body>
 </html>
