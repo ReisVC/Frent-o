@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajuda.me</title>
-    <script src="index.js"></script>
+    
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'><!--Biblioteca de ícones-->
 </head>
@@ -12,7 +12,7 @@
 <div class="container">
     <!--Header com botão de cadastro que deve abrir o modal-->
     <div class="header">
-        <strong><h1>Ajuda.me</h1></strong>
+        <span><strong><h1>Ajuda.me</h1></strong></span>
         <button onclick="openModal()" id="new">Adicionar ONG</button>
     </div>
 
@@ -43,30 +43,22 @@
     <!--MODAL QUE DEVE APARECER NA TELA PARA UPDATE DO CRUD-->
     <div class="modal-container">
         
-        <div class="modal"></div>
+        <div class="modal">
         
-            <form>
-            
+            <form>            
                 <label for="name">Nome</label>
-                <input id="name" type="text" placeholder="Name" required>
-                
-                
+                <input id="name" type="text" placeholder="Digite o nome da sua ONG aqui" required>
                 
                 <label for="cnpj">CNPJ</label>
-                <input id="cnpj" type="number" placeholder="CNPJ" required>
-                
-                
-                
-                
+                <input id="cnpj" type="number" placeholder="Digite seu CNPJ" required>
                 
                 <label for="email">E-Mail</label>
-                <input id="email" type="text" placeholder="E-Mail" required>
-                
-                
+                <input id="email" type="text" placeholder="Digite seu E-Mail" required>
                 
                 <label for="phone">Telefone</label>
-                <input id="phone" type="number" placeholder="Phone" required>
-                
+                <input id="phone" type="number" placeholder="Digite seu telefone" required>
+
+                <button id="btnSalvar">Salvar</button>
             
             
             </form>
@@ -76,6 +68,6 @@
     </div>
 
 </div>
-
+<script src="index.js"></script>
 </body>
 </html>

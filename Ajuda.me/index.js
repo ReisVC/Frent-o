@@ -1,11 +1,21 @@
 /* 
-Necessário ainda verificar as condições para que as propriedades sejam preenchidas de forma correta
+            AQUI FOI FEITO APENAS COM O CONHECIMENTO QUE TENHO DOMÍNIO, SEM PESQUISAR NADA
+
+<<OBSERVAÇÕES IMPORTANTES>>
+Essa parte do código roda somente no console do navegador, sem interação com front ou localStorage
+
+Para executar essa parte do código, é necessario chamar a função menu() no final do código, antes de entrar na área do projeto
+com estudo ou no console.
+
+
+<<ADICIONAIS>>
+
+-Necessário ainda verificar as condições para que as propriedades sejam preenchidas de forma correta
 como telefone ter formato de telefone, CNPJ, Email.
-
-Necessário implementar lógica que interaja com array vazio, caso não tenha nenhuma ONG registrada em funções como DELETE e UPDATE
-
-
+-Necessário implementar lógica que interaja com array vazio, caso não tenha nenhuma ONG registrada em funções como DELETE e UPDATE
 */
+
+
 let register=[]
 
 // CREATE
@@ -36,7 +46,7 @@ function create(){
 // READ
 function read(array){
 
-    //apenas apresenta a lista de ONG's registradas com o número do indice começando em 1
+    //apenas apresenta a lista de ONG's registradas com o número do índice começando em 1
     array.forEach((i, index)=>{
         console.table(`[${index+1}]-Instituição:${i.name}\n    CNPJ: ${i.cnpj}\n    E-Mail: ${i.email}\n    Telefone: ${i.phone}`)
     })
@@ -62,7 +72,7 @@ function update(array){
 function delet (array){
     read(array)
 
-    //apaga o indice selecionado de dentro do array
+    //apaga o índice selecionado de dentro do array
     esc=Number(prompt('Qual ONG deseja deletar?'))
     array.splice(esc-1,1)
     alert('ONG deletada')
@@ -96,14 +106,39 @@ function menu(){
 
     }
 }
-//--------------------------------------------------------------------------------------------------------------------
+//                      <<<< CHAMAR menu() AQUI >>>>
+
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+/*         A partir daqui foi feito com estudo na internet com tutoriais          */
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
+
 //INTERATIVIDADE DO MODAL E FUNCIONALIDADES DOS BOTÕES 
 const modal = document.querySelector('.modal-container')
 const tbody = document.querySelector('tbody')
+const btnSalvar = document.querySelector('#btnSalvar')
+const sName = document.querySelector('#name')
+const sCnpj = document.querySelector('#cnpj')
+const sEmail = document.querySelector('#email')
+const sPhone = document.querySelector('#phone')
 
+let itens//serve para receber o array de objetos do localStorage
+let id
+
+//essa const é para uso do local storage, get recebe uma string e transforma em objeto pelo
+//argumento JSON.parce que recebe o endereço localStorage.getItem e a key armazenamento q serve para encontrar
+//o array com as ONG's cadastradas  
+const getItensBD = () => JSON.parse(localStorage.getItem('armazenamento')) ?? []//o argumento ?? serve para que caso não exista o endereço, retorne um array vazio
+
+//essa parte faz meio q o contrario, ele converte o objeto em uma string usando JSON.stringify e envia para o localStorage
+const setItensBD = () => localStorage.setItem('armazenamento', JSON.stringify(itens))
 
 //Função para abrir o Modal
-//edit é um valor booleano de padrão false e index é 0
+//edit é um valor booleano de padrão false e o index é 0
+//esses valores serão reatribuídos depois
 function openModal(edit = false, index = 0) {
 
     //Quando chamado, adiciona 'active' no classList CSS
@@ -126,15 +161,107 @@ function openModal(edit = false, index = 0) {
     if (edit) {
 
         //substituições simples de valores 
-      sNome.value = itens[index].nome
-      sFuncao.value = itens[index].funcao
-      sSalario.value = itens[index].salario
+        //editar Nome, CNPJ, Email, telefone 
+      sName.value = itens[index].name
+      sCnpj.value = itens[index].cnpj
+      sEmail.value = itens[index].email
+      sPhone.value = itens[index].phone
       id = index
     } else {
-      sNome.value = ''
-      sFuncao.value = ''
-      sSalario.value = ''
+        sName.value = ''
+        sCnpj.value = ''
+        sEmail.value = ''
+        sPhone.value = ''
     }
     
   }
+
+function editItem(index) {
+
+    //quando chama função openModal recebe os valores de entrada
+    //reatribuição q comentei na criação da função
+    openModal(true, index)
+  }
+
+  //função para carregar os cadastros e apresentar no tbody do HTML
+function loadItens() {
+    itens = getItensBD()
+    tbody.innerHTML = ''
+
+    //forEach para criar uma tr para cada ong cadastrada no array de objeto do localStorage no HTML 
+    itens.forEach((item, index) => {
+      insertItem(item, index)
+    })
   
+  }
+
+  //função de delete simples, recebe o índice do array do localStorage e deleta o índice selecionado 
+function deleteItem(index) {
+    itens.splice(index, 1)
+    setItensBD()
+    //load no final das funções para sempre atualizar a lista
+    loadItens()
+  }
+
+  //função para inserir item
+function insertItem(item, index) {
+
+    //Cria uma TR no HTML com o argumento .createElement
+    let tr = document.createElement('tr')
+    
+    //insere dentro da tr as td, serve para listar as ongs cadastradas no HTML para que sejam apresentadas
+    //foi adicionado também as funções de editItem e deleteItem e botões como texto, mas quando estiverem no HTML
+    //serão representadas da forma que devem, um jeito inteligente de adicionar todas as interações junto com a lista
+    //de ongs cadastradas
+    tr.innerHTML = `
+      <td>${item.nome}</td>
+      <td>${item.cnpj}</td>
+      <td>${item.email}</td>
+      <td>${item.phone}</td>
+      <td class="acao">
+        <button onclick="editItem(${index})"><i class='bx bx-edit' ></i></button>
+      </td>
+      <td class="acao">
+        <button onclick="deleteItem(${index})"><i class='bx bx-trash'></i></button>
+      </td>
+    `//a cima foi utilizado bx bx do link de icones importados no HTML
+
+    //serve para adicionar essa tr que foi criada como filha de tbody
+    //que no HTML está vazia, porque é criada por aqui
+    tbody.appendChild(tr)
+  }
+
+  //botão para salvar
+  btnSalvar.onclick = e => {
+    
+    //se as variaveis estiverem sem preenchimento, não realiza atualização
+    if (sName.value == '' || sCnpj.value == '' || sEmail.value == ''|| sPhone.value == '') {
+      return
+    }
+    
+    //serve para evitar que o envio do formulário recarregue a página
+    e.preventDefault();
+  
+    //se o índice tiver qualquer número, atualiza o array de objeto no índice 'id' que é onde foi salvo o índice no começo do código
+    if (id !== undefined) {
+      itens[id].name = sName.value
+      itens[id].cnpj = sCnpj.value
+      itens[id].email = sEmail.value
+      itens[id].phone = sPhone.value
+    } else {
+        //do contrario, só mantem os valores originais
+      itens.push({'nome': sName.value, 'cnpj': sCnpj.value, 'email': sEmail.value, 'phone': sPhone.value})
+    }
+    
+    //envia para o localStorage
+    setItensBD()
+  
+    //fecha o modal
+    modal.classList.remove('active')
+    //atualiza a lista
+    loadItens()
+    //seta o id como undefined 
+    id = undefined
+  }
+
+  loadItens()

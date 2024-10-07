@@ -57,6 +57,7 @@ button {
   width: auto; 
   height:inherit; 
   overflow:auto;
+  text-align: center;
 }
 
 .divTable::-webkit-scrollbar {
@@ -191,7 +192,7 @@ tbody tr td.acao {
   padding: 5px 10px; 
   width: 100%;
   border: none;
-  background-color: rgb(57, 57, 226);
+  background-color: rgb(235, 180, 28);
   color: white;
 }
 
