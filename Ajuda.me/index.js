@@ -214,7 +214,7 @@ function insertItem(item, index) {
     //serão representadas da forma que devem, um jeito inteligente de adicionar todas as interações junto com a lista
     //de ongs cadastradas
     tr.innerHTML = `
-      <td>${item.nome}</td>
+      <td>${item.name}</td>
       <td>${item.cnpj}</td>
       <td>${item.email}</td>
       <td>${item.phone}</td>
@@ -250,7 +250,7 @@ function insertItem(item, index) {
       itens[id].phone = sPhone.value
     } else {
         //do contrario, só mantem os valores originais
-      itens.push({'nome': sName.value, 'cnpj': sCnpj.value, 'email': sEmail.value, 'phone': sPhone.value})
+      itens.push({'name': sName.value, 'cnpj': sCnpj.value, 'email': sEmail.value, 'phone': sPhone.value})
     }
     
     //envia para o localStorage
